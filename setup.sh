@@ -7,14 +7,14 @@
 # Vérification des droits d'administrateur (sudo)
 if [ "$EUID" -ne 0 ]; then
   echo "Ce script doit être exécuté avec 'sudo'."
-  echo "Utilisation : sudo ./install_dev_full.sh"
+  echo "Utilisation : sudo ./setup.sh"
   exit 1
 fi
 
 # --- Section 0: Modifier le Fond d'Écran ---
 echo "--- Section 0: Personnalisation de l'environnement : Modification du fond d'écran ---"
 WALLPAPER_URL="https://images.unsplash.com/photo-1549692520-acc6669f6e1f?q=80&w=2000"
-WALLPAPER_FILE="lien.png"
+WALLPAPER_FILE="mint.png"
 
 echo "Téléchargement d'un fond d'écran de développeur..."
 wget -q --show-progress -O "$WALLPAPER_FILE" "$WALLPAPER_URL"
@@ -139,19 +139,22 @@ apt install evince okular -y
 echo "Note : Les raccourcis pour Evince et Okular sont créés automatiquement via le gestionnaire de paquets."
 apt install texlive-full -y
 echo "Note : texlive-full est une suite de paquets, il n'y a pas de raccourci de bureau."
-# Installation de LibreOffice Writer
-echo "Installation de LibreOffice Writer..."
-apt install libreoffice-writer -y
+# Suppression de LibreOffice et installation de OnlyOffice
+echo "Suppression de LibreOffice Writer..."
+apt purge libreoffice-writer -y
+echo "Installation de OnlyOffice Desktop Editors via Snap..."
+apt install snapd -y
+snap install onlyoffice-desktopeditors
 # Création du raccourci
-echo "Création du raccourci pour LibreOffice Writer..."
-cat > /usr/share/applications/libreoffice-writer.desktop << EOL
+echo "Création du raccourci pour OnlyOffice Desktop Editors..."
+cat > /usr/share/applications/onlyoffice-desktopeditors.desktop << EOL
 [Desktop Entry]
-Name=LibreOffice Writer
-Comment=Créer et éditer des documents texte
-Exec=/usr/bin/libreoffice --writer %U
-Icon=libreoffice-writer
+Name=OnlyOffice Desktop Editors
+Comment=Suite bureautique complète compatible avec les documents Office
+Exec=/snap/bin/onlyoffice-desktopeditors
+Icon=onlyoffice-desktopeditors
 Type=Application
-Categories=Office;WordProcessor;
+Categories=Office;
 EOL
 
 # --- Section 4: Bases de Données et Clients ---
@@ -199,7 +202,6 @@ echo "--- Section 6: Installation d'outils pour le développement web ---"
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
 apt install nodejs -y
 echo "Note : Node.js est un environnement d'exécution pour JavaScript, il n'y a pas de raccourci de bureau."
-apt install snapd -y
 snap install postman
 # Création du raccourci
 echo "Création du raccourci pour Postman..."
@@ -265,6 +267,22 @@ echo "PHP installé. Version : $(php -v | head -n 1)"
 echo "Installation de Java (OpenJDK 17 LTS)..."
 apt install openjdk-17-jdk -y
 echo "Java installé. Version : $(java -version 2>&1 | head -n 1)"
+
+# --- Section 9: Prise de Notes ---
+echo "--- Section 9: Installation de l'application de prise de notes Simplenote ---"
+echo "Installation de Simplenote via Snap..."
+snap install simplenote
+# Création du raccourci
+echo "Création du raccourci pour Simplenote..."
+cat > /usr/share/applications/simplenote.desktop << EOL
+[Desktop Entry]
+Name=Simplenote
+Comment=Application de prise de notes simple et synchronisée
+Exec=/snap/bin/simplenote
+Icon=simplenote
+Type=Application
+Categories=Office;
+EOL
 
 echo "===================================================================="
 echo "Installation de votre environnement de développement terminée. 🚀"
