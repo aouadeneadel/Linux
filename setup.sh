@@ -13,8 +13,8 @@ fi
 
 # --- Section 0: Modifier le Fond d'Écran ---
 echo "--- Section 0: Personnalisation de l'environnement : Modification du fond d'écran ---"
-WALLPAPER_URL="https://images.unsplash.com/photo-1549692520-acc6669f6e1f?q=80&w=2000"
-WALLPAPER_FILE="mint.png"
+WALLPAPER_URL="https://github.com/aouadeneadel/Linux/blob/main/linuxmint-simple-geometric.png"
+WALLPAPER_FILE="linuxmint-simple-geometric.png"
 
 echo "Téléchargement d'un fond d'écran de développeur..."
 wget -q --show-progress -O "$WALLPAPER_FILE" "$WALLPAPER_URL"
