@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# ====================================================================
 # SCRIPT D'INSTALLATION D'ENVIRONNEMENT DE DÉVELOPPEMENT COMPLET
-# ====================================================================
 
 # Vérification des droits d'administrateur (sudo)
 if [ "$EUID" -ne 0 ]; then
